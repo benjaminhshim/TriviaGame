@@ -2,9 +2,6 @@ $(document).ready(function() {
 
     // GLOBAL VARIABLES
 
-    var startButtonLock = false;
-    var answered = false;
-
     var trivia = [
         {
             question: "What network is Silicon Valley on?",
@@ -34,10 +31,51 @@ $(document).ready(function() {
     ]
 
 
+    var startButtonLock = false;
+    var answered = false;
+
+    var seconds = 10;
+    var interval;
+
+    // CREATE FUNCTIONS FOR TIME COUNTDOWN
+    function countdown() {
+        $('#time-remaining').html('Time Remaining: ' + seconds);
+
+        interval = setInterval(decrement, 1000);
+    }
+
+    function decrement() {
+        seconds--;
+        $('#time-remaining').html('Time Remaining: ' + seconds);
+
+        if (seconds === 0) {
+            stopTime();
+        }
+    }
+
+    function stopTime() {
+        clearInterval(interval);
+    }
 
 
+    // GAME FUNCTIONS
+    function startGame() {
+        newQuestion();
+    }
 
+    function newQuestion() {
+        
+    }
 
+    // ===== CLICK EVENTS =======
+
+    // WHEN USER CLICKS START BUTTON
+        // CALL startGame FUNCTION
+    $('#start').click(function() {
+        countdown();
+        startGame();
+
+    })
 
 
 
