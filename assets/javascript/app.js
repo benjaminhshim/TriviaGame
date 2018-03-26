@@ -85,14 +85,16 @@ $(document).ready(function() {
         $music[0].currentTime = 0;
     }
 
-    // DECLARE VARIABLES FOR TIME COUNTDOWN
-    var seconds;
-    var interval;
-
+    // RESTART BUTTON
     var restart = $('#restart');
     restart.hide();
     // var gif = $('#gif');
     // gif.hide();
+
+
+    // DECLARE VARIABLES FOR TIME COUNTDOWN
+    var seconds;
+    var interval;
 
     // CREATE FUNCTIONS FOR TIME COUNTDOWN
     function countdown() {
