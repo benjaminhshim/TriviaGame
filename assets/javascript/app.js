@@ -177,7 +177,6 @@ $(document).ready(function() {
 
 
     // THE transitionPage IS DISPLAYED AFTER EVERY ANSWER, EITHER RIGHT OR WRONG
-        // TO TELL USER IF THEY GOT THE ANSWER RIGHT OR WRONG
     function transitionPage() {
         
         // REMOVE THE QUESTION, ANSWERS AND COUNTDOWN FROM THE WINDOW
@@ -189,10 +188,11 @@ $(document).ready(function() {
         // CREATE A VARIABLE REPRESENTING THE INDEX OF answerArray WITH THE RIGHT NUMBER VALUE
         var correctAnswerIndex = trivia[currentQuestion].correctAnswer;
 
-        // CREATE A VARIABLE DISPLAY THE STRING OF THE CORRECT ANSWER
+        // CREATE A VARIABLE TO DISPLAY THE STRING OF THE CORRECT ANSWER
         var correctAnswerString = trivia[currentQuestion].answerArray[trivia[currentQuestion].correctAnswer];
 
-        // REPLACE QUESTION AND ANSWERS WITH MESSAGE AND IMAGE
+        // REPLACE QUESTION AND ANSWERS WITH MESSAGE AND GIF
+            // INCREMENT POINTS FOR CORRECT, INCORRECT OR UNANSWERED QUESTIONS
         if (user == correctAnswerIndex && (answerLock === false)) {
             correctAnswers++;
             $('#message').html('Correct');
@@ -210,27 +210,36 @@ $(document).ready(function() {
             $('#gif').html('<img src="assets/images/out-of-time.gif" id="gif">');
 
             answerLock = false;
-
         }
 
+
+        // IF USER ANSWERS ALL 9 QUESTIONS
+            // LAUNCH results PAGE AFTER 5 SECONDS
         if (currentQuestion == 8) {
             setTimeout(results, 5000);
-        } else {
+        } 
+        // IF USER HASN'T ANSWERED ALL 9 QUESTIONS
+            // INCREMENT INDEX OF QUESTIONS IN trivia
+            // LAUNCH newQuestion AFTER 5 SECONDS
+        else {
             currentQuestion++;
             setTimeout(newQuestion, 5000);
         }
 
-
-
     }
 
+
+    // ON results PAGE..
     function results() {
+
+        // HIDE ELEMENTS IN QUESTIONS PAGE FROM WINDOW
         $('#question').hide();
         $('#answers').hide();
         $('#time-remaining').hide();
         $('#message').hide();
         $('#gif').hide();
 
+        // SHOW STATS FOR CORRECT, INCORRECT & UNANSWERED QUESTIONS
         $('#correct-total').show();
         $('#incorrect-total').show();
         $('#unanswered-total').show();
@@ -241,6 +250,7 @@ $(document).ready(function() {
         restart.show();
 
     }
+    
 
     $('#restart').click(function() {
         restart.hide();
