@@ -250,8 +250,10 @@ $(document).ready(function() {
         restart.show();
 
     }
-    
 
+    // RESTART BUTTON
+        // HIDE RESTART BUTTON
+        // LAUNCH newGame
     $('#restart').click(function() {
         restart.hide();
         newGame();
