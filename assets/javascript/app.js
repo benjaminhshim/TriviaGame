@@ -259,17 +259,23 @@ $(document).ready(function() {
         newGame();
     })
 
+    // FOR A NEW GAME..
+        // HIDE ELEMENTS OF RESULTS PAGE
     function newGame() {
         $('#correct-total').hide();
         $('#incorrect-total').hide();
         $('#unanswered-total').hide();
 
+        // RESET POINTS & STATS
         currentQuestion = 0;
         correctAnswers = 0;
         incorrectAnswers = 0;
         unanswered = 0;
 
+        // LAUNCH NEW QUESTION
         newQuestion();
+
+        // RESTART MUSIC
         $music[0].play();
         
 
