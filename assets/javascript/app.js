@@ -158,11 +158,12 @@ $(document).ready(function() {
         // START COUNTDOWN
         countdown();
 
+
         // WHEN USER CLICKS ON ANSWER..
         $('.answer').click(function() {
 
             // STORE THE CLICKED ANSWER INTO user AND GIVE IT AN ATTRIBUTE OF index TO CHECK IF IT IS THE CORRECT ANSWER
-            // RESTART TIME
+            // CLEAR COUNTDOWN
             // LAUNCH transitionPage DISPLAYING RESULT AND GIF
             if (answerLock === false) {
                 user = $(this).attr('index');
