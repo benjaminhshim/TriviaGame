@@ -116,11 +116,11 @@ $(document).ready(function() {
     }
 
 
-
-
     // WHEN USER CLICKS START BUTTON
-        // DISPLAY QUESTION AND ANSWERS
-        // START TIME COUNTDOWN
+        // HIDE START BUTTON
+        // CALL newQuestion FUNCTION
+        // START COUNTDOWN
+        // STOP MUSIC? PLAY MUSIC AT LOWER LEVEL?
     $('#start').click(function() {
         $('#start').hide();
         newQuestion();
@@ -130,20 +130,18 @@ $(document).ready(function() {
     })
     
 
+    // ON newQuestion() 
     function newQuestion() {
         $('#message').empty();
         $('#gif').empty();
-
+        
+        // SHOW QUESTION PAGE WITH NEW QUESTION, ANSWERS, COUNTDOWN
         $('#question').show();
         $('#answers').show();
         $('#time-remaining').show();
         $('#message').show();
         $('#gif').show();
 
-        // DISPLAY QUESTION TO THE WINDOW
-        // for (var i = 0; i < trivia.length; i++) {
-        //     $('#question').html(trivia[i].question);
-        // }
         $('#question').html(trivia[currentQuestion].question);
 
         answerDiv = $('#answers');
@@ -157,10 +155,15 @@ $(document).ready(function() {
             answerDiv.append(choices);
         }
 
+        // START COUNTDOWN
         countdown();
 
+        // WHEN USER CLICKS ON ANSWER..
         $('.answer').click(function() {
+
             // STORE THE CLICKED ANSWER INTO user AND GIVE IT AN ATTRIBUTE OF index TO CHECK IF IT IS THE CORRECT ANSWER
+            // RESTART TIME
+            // LAUNCH transitionPage DISPLAYING RESULT AND GIF
             if (answerLock === false) {
                 user = $(this).attr('index');
                 clearInterval(interval);
