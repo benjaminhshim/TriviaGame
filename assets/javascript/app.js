@@ -2,6 +2,7 @@ $(document).ready(function() {
 
     // GLOBAL VARIABLES
 
+    // ADD QUESTIONS, ANSWERS, ANSWER INDEX AND VICTORY GIF AS OBJECTS INTO AN ARRAY
     var trivia = [
         {
             question: "What network is Silicon Valley on?",
@@ -61,6 +62,15 @@ $(document).ready(function() {
     ]
 
  
+    var correctAnswers = 0;
+    var incorrectAnswers = 0;
+    var unanswered = 0;
+    var answerLock = false;
+
+    // THIS VARIABLE WILL REPRESENT THE INDEX OF THE QUESTIONS IN THE ARRAY
+    var currentQuestion = 0;
+
+    // CREATE FUNCTIONS FOR STARTING AND STOPPING MUSIC
     var $music = $('#music');
     
     function playMusic () {
@@ -74,14 +84,6 @@ $(document).ready(function() {
         $music[0].pause();
         $music[0].currentTime = 0;
     }
-
-    var correctAnswers = 0;
-    var incorrectAnswers = 0;
-    var unanswered = 0;
-    var answerLock = false;
-
-    // THIS VARIABLE WILL REPRESENT THE INDEX OF THE QUESTIONS IN THE ARRAY
-    var currentQuestion = 0;
 
     // DECLARE VARIABLES FOR TIME COUNTDOWN
     var seconds;
