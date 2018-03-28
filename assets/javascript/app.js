@@ -11,7 +11,7 @@ $(document).ready(function() {
             gif: 'assets/images/answer-1.gif'
         },
         {
-            question: "What is the name of the Richard's startup?",
+            question: "What is the name of Richard's company?",
             answerArray: ['PIED PIPER', 'AVIATO', 'SNAP',  'GOOGLE'],
             correctAnswer: 0,
             gif: 'assets/images/pied-piper.gif'
@@ -23,7 +23,7 @@ $(document).ready(function() {
             gif: 'assets/images/erlich.gif'
         },
         {
-            question: "Russ Hanneman is based off of which investor in Shark Tank?",
+            question: "Russ Hanneman is based off of which shark in Shark Tank?",
             answerArray: ["KEVIN O'LEARY", 'DAYMOND JOHN', 'MARK CUBAN',  'ROBERT HERJAVEC'],
             correctAnswer: 2,
             gif: 'assets/images/russ.gif'
@@ -36,13 +36,13 @@ $(document).ready(function() {
 
         },
         {
-            question: "Who is the found of SeeFood?",
+            question: "Who is the founder of SeeFood?",
             answerArray: ['JARED', 'JIAN-YANG', 'MONICA',  'ERLICH'],
             correctAnswer: 1,
             gif: 'assets/images/jian-yang.gif'
         },
         {
-            question: "What is the name of Erlich's startup",
+            question: "What is the name of Erlich's startup?",
             answerArray: ['PIED PIPER', 'HOOLI', 'AVIATO',  'GOOGLE'],
             correctAnswer: 2,
             gif: 'assets/images/aviato.gif'
@@ -88,8 +88,7 @@ $(document).ready(function() {
     // RESTART BUTTON
     var restart = $('#restart');
     restart.hide();
-    // var gif = $('#gif');
-    // gif.hide();
+
 
 
     // DECLARE VARIABLES FOR TIME COUNTDOWN
@@ -100,6 +99,7 @@ $(document).ready(function() {
     function countdown() {
         seconds = 10;
         $('#time-remaining').html('<span id="seconds">' + seconds + '<span>');
+        answerLock = false;
         
         clearInterval(interval);
         interval = setInterval(decrement, 1000);
@@ -108,6 +108,7 @@ $(document).ready(function() {
     function decrement() {
         seconds--;
         $('#time-remaining').html('<span id="seconds">' + seconds + '<span>');
+        
         if (seconds === 0) {
             clearInterval(interval);
             answerLock = true;
@@ -123,8 +124,8 @@ $(document).ready(function() {
         // STOP MUSIC? PLAY MUSIC AT LOWER LEVEL?
     $('#start').click(function() {
         $('#start').hide();
-        newQuestion();
-        countdown();
+        newGame();
+        //countdown();
         //stopMusic();
         //$music[0].volume = 0.3;
     })
@@ -134,6 +135,8 @@ $(document).ready(function() {
     function newQuestion() {
         $('#message').empty();
         $('#gif').empty();
+
+        answerLock = false;
         
         // SHOW QUESTION PAGE WITH NEW QUESTION, ANSWERS, COUNTDOWN
         $('#question').show();
@@ -165,7 +168,7 @@ $(document).ready(function() {
             // STORE THE CLICKED ANSWER INTO user AND GIVE IT AN ATTRIBUTE OF index TO CHECK IF IT IS THE CORRECT ANSWER
             // CLEAR COUNTDOWN
             // LAUNCH transitionPage DISPLAYING RESULT AND GIF
-            if (answerLock === false) {
+            if (answerLock == false) {
                 user = $(this).attr('index');
                 clearInterval(interval);
                 transitionPage();
@@ -185,6 +188,7 @@ $(document).ready(function() {
         $('#time-remaining').empty();
 
 
+
         // CREATE A VARIABLE REPRESENTING THE INDEX OF answerArray WITH THE RIGHT NUMBER VALUE
         var correctAnswerIndex = trivia[currentQuestion].correctAnswer;
 
@@ -193,20 +197,20 @@ $(document).ready(function() {
 
         // REPLACE QUESTION AND ANSWERS WITH MESSAGE AND GIF
             // INCREMENT POINTS FOR CORRECT, INCORRECT OR UNANSWERED QUESTIONS
-        if (user == correctAnswerIndex && (answerLock === false)) {
+        if ((user == correctAnswerIndex) && (answerLock == false)) {
             correctAnswers++;
             $('#message').html('Correct');
             $('#gif').html('<img src="'+ trivia[currentQuestion].gif + '" id="gif">');
 
 
-        } else if (user != correctAnswerIndex && (answerLock === false)) {
+        } else if ((user != correctAnswerIndex) && (answerLock == false)) {
             incorrectAnswers++;
             $('#message').html('The answer is <span id="wrong-message">' + correctAnswerString + '</span>');
             $('#gif').html('<img src="assets/images/wrong-answer.gif" id="gif">');
 
         } else {
             unanswered++;
-            $('#message').html('out of time. the answer was <span id="unanswered-message">' + correctAnswerString + '</span>');
+            $('#message').html('Out of time. The answer was <span id="unanswered-message">' + correctAnswerString + '</span>');
             $('#gif').html('<img src="assets/images/out-of-time.gif" id="gif">');
 
             answerLock = false;
@@ -224,6 +228,7 @@ $(document).ready(function() {
         else {
             currentQuestion++;
             setTimeout(newQuestion, 5000);
+            
         }
 
     }
@@ -255,6 +260,7 @@ $(document).ready(function() {
         // HIDE RESTART BUTTON
         // LAUNCH newGame
     $('#restart').click(function() {
+        $music[0].currentTime = 0;
         restart.hide();
         newGame();
     })
@@ -276,8 +282,7 @@ $(document).ready(function() {
         newQuestion();
 
         // RESTART MUSIC
-        $music[0].play();
-        
+        playMusic();        
 
     }
 
